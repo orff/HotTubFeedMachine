@@ -29,6 +29,11 @@
 
 #pragma mark helpers
 
+//called from main document to save the file
+-(NSData *)dataForSave {
+    return [NSKeyedArchiver archivedDataWithRootObject:currentSession];
+}
+
 -(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
     //update current session with new response
     [currentSession addFeedResponse:newResponse];

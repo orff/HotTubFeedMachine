@@ -39,6 +39,20 @@
     _saved = YES;
 }
 
+-(void)encodeWithCoder:(NSCoder *)encoder {    
+    [encoder encodeObject:self.timeStamp forKey:@"timeStamp"];
+    [encoder encodeObject:self.filename forKey:@"filename"];
+}
+
+-(id)initWithCoder:(NSCoder *)decoder {    
+    self = [super init];
+
+    self.timeStamp = [decoder decodeObjectForKey:@"timeStamp"];
+    self.filename = [decoder decodeObjectForKey:@"filename"];
+    
+    return self;
+}
+
 -(id)initWithFeedResponse:(NSString *)feedResponse andURL:(NSString *)urlString
 {
     self = [super init];

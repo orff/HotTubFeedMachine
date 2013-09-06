@@ -44,4 +44,6 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
 @property (strong, nonatomic) IBOutlet NSView *progressContainer;
 @property (strong, nonatomic) IBOutlet NSProgressIndicator *progressIndicator;
 
+-(NSData *)dataForSave;
+
 @end
