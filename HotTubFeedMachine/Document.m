@@ -7,6 +7,7 @@
 //
 
 #import "Document.h"
+#import "MasterViewController.h"
 
 @implementation Document
 
@@ -30,6 +31,11 @@
 {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    
+    self.masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
+    [self.masterViewController.view setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
+    [aController.window.contentView addSubview:self.masterViewController.view];
+    self.masterViewController.view.frame = ((NSView*)aController.window.contentView).bounds;
 }
 
 + (BOOL)autosavesInPlace

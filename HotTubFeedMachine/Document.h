@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MasterViewController;
 @interface Document : NSDocument
+
+@property (nonatomic,strong) IBOutlet MasterViewController *masterViewController;
 
 @end

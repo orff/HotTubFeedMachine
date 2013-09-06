@@ -14,9 +14,20 @@
 		6FAB2C6517DA69EE00DC352F /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAB2C6417DA69EE00DC352F /* Document.m */; };
 		6FAB2C6817DA69EE00DC352F /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB2C6617DA69EE00DC352F /* Document.xib */; };
 		6FAB2C6B17DA69EF00DC352F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB2C6917DA69EF00DC352F /* MainMenu.xib */; };
+		6FD8CB2117DA6B7E000BE201 /* balloon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1017DA6B7E000BE201 /* balloon.iconset */; };
+		6FD8CB2217DA6B7E000BE201 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1317DA6B7E000BE201 /* LICENSE */; };
+		6FD8CB2317DA6B7E000BE201 /* mongoose.c in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1417DA6B7E000BE201 /* mongoose.c */; };
+		6FD8CB2417DA6B7E000BE201 /* MongooseDaemon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1717DA6B7E000BE201 /* MongooseDaemon.m */; };
+		6FD8CB2517DA6B7E000BE201 /* README.rdoc in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1817DA6B7E000BE201 /* README.rdoc */; };
+		6FD8CB2617DA6B7E000BE201 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */; };
+		6FD8CB2717DA6B7E000BE201 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */; };
+		6FD8CB2817DA6B7E000BE201 /* FeedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8CB1E17DA6B7E000BE201 /* FeedResponse.m */; };
+		6FD8CB2917DA6B7E000BE201 /* RecordingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD8CB2017DA6B7E000BE201 /* RecordingSession.m */; };
+		A576658ED585458C87CBC0F9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C58463461574805BECD383B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		6FAB2C4E17DA69EE00DC352F /* HotTubFeedMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotTubFeedMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FAB2C5117DA69EE00DC352F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6FAB2C5417DA69EE00DC352F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -31,6 +42,22 @@
 		6FAB2C6417DA69EE00DC352F /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		6FAB2C6717DA69EE00DC352F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Document.xib; sourceTree = "<group>"; };
 		6FAB2C6A17DA69EF00DC352F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6FD8CB0E17DA6B7E000BE201 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		6FD8CB1017DA6B7E000BE201 /* balloon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = balloon.iconset; sourceTree = "<group>"; };
+		6FD8CB1317DA6B7E000BE201 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6FD8CB1417DA6B7E000BE201 /* mongoose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mongoose.c; sourceTree = "<group>"; };
+		6FD8CB1517DA6B7E000BE201 /* mongoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mongoose.h; sourceTree = "<group>"; };
+		6FD8CB1617DA6B7E000BE201 /* MongooseDaemon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MongooseDaemon.h; sourceTree = "<group>"; };
+		6FD8CB1717DA6B7E000BE201 /* MongooseDaemon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MongooseDaemon.m; sourceTree = "<group>"; };
+		6FD8CB1817DA6B7E000BE201 /* README.rdoc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.rdoc; sourceTree = "<group>"; };
+		6FD8CB1917DA6B7E000BE201 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterViewController.xib; sourceTree = "<group>"; };
+		6FD8CB1D17DA6B7E000BE201 /* FeedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedResponse.h; sourceTree = "<group>"; };
+		6FD8CB1E17DA6B7E000BE201 /* FeedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedResponse.m; sourceTree = "<group>"; };
+		6FD8CB1F17DA6B7E000BE201 /* RecordingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingSession.h; sourceTree = "<group>"; };
+		6FD8CB2017DA6B7E000BE201 /* RecordingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingSession.m; sourceTree = "<group>"; };
+		8C58463461574805BECD383B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FAB2C5217DA69EE00DC352F /* Cocoa.framework in Frameworks */,
+				A576658ED585458C87CBC0F9 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +79,7 @@
 				6FAB2C5717DA69EE00DC352F /* HotTubFeedMachine */,
 				6FAB2C5017DA69EE00DC352F /* Frameworks */,
 				6FAB2C4F17DA69EE00DC352F /* Products */,
+				52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +96,7 @@
 			children = (
 				6FAB2C5117DA69EE00DC352F /* Cocoa.framework */,
 				6FAB2C5317DA69EE00DC352F /* Other Frameworks */,
+				8C58463461574805BECD383B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -84,6 +114,13 @@
 		6FAB2C5717DA69EE00DC352F /* HotTubFeedMachine */ = {
 			isa = PBXGroup;
 			children = (
+				6FD8CB0E17DA6B7E000BE201 /* constants.h */,
+				6FD8CB0F17DA6B7E000BE201 /* images */,
+				6FD8CB1117DA6B7E000BE201 /* libs */,
+				6FD8CB1917DA6B7E000BE201 /* MasterViewController.h */,
+				6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */,
+				6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */,
+				6FD8CB1C17DA6B7E000BE201 /* models */,
 				6FAB2C6317DA69EE00DC352F /* Document.h */,
 				6FAB2C6417DA69EE00DC352F /* Document.m */,
 				6FAB2C6617DA69EE00DC352F /* Document.xib */,
@@ -105,6 +142,46 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6FD8CB0F17DA6B7E000BE201 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				6FD8CB1017DA6B7E000BE201 /* balloon.iconset */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		6FD8CB1117DA6B7E000BE201 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				6FD8CB1217DA6B7E000BE201 /* MongooseDeamon */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		6FD8CB1217DA6B7E000BE201 /* MongooseDeamon */ = {
+			isa = PBXGroup;
+			children = (
+				6FD8CB1317DA6B7E000BE201 /* LICENSE */,
+				6FD8CB1417DA6B7E000BE201 /* mongoose.c */,
+				6FD8CB1517DA6B7E000BE201 /* mongoose.h */,
+				6FD8CB1617DA6B7E000BE201 /* MongooseDaemon.h */,
+				6FD8CB1717DA6B7E000BE201 /* MongooseDaemon.m */,
+				6FD8CB1817DA6B7E000BE201 /* README.rdoc */,
+			);
+			path = MongooseDeamon;
+			sourceTree = "<group>";
+		};
+		6FD8CB1C17DA6B7E000BE201 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				6FD8CB1D17DA6B7E000BE201 /* FeedResponse.h */,
+				6FD8CB1E17DA6B7E000BE201 /* FeedResponse.m */,
+				6FD8CB1F17DA6B7E000BE201 /* RecordingSession.h */,
+				6FD8CB2017DA6B7E000BE201 /* RecordingSession.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6FAB2C6E17DA69EF00DC352F /* Build configuration list for PBXNativeTarget "HotTubFeedMachine" */;
 			buildPhases = (
+				30759EBE46614B30A2823A66 /* Check Pods Manifest.lock */,
 				6FAB2C4A17DA69EE00DC352F /* Sources */,
 				6FAB2C4B17DA69EE00DC352F /* Frameworks */,
 				6FAB2C4C17DA69EE00DC352F /* Resources */,
+				C1E9868C0A2E43E1BF80200F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -156,14 +235,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FD8CB2217DA6B7E000BE201 /* LICENSE in Resources */,
+				6FD8CB2117DA6B7E000BE201 /* balloon.iconset in Resources */,
 				6FAB2C5C17DA69EE00DC352F /* InfoPlist.strings in Resources */,
 				6FAB2C6217DA69EE00DC352F /* Credits.rtf in Resources */,
+				6FD8CB2717DA6B7E000BE201 /* MasterViewController.xib in Resources */,
 				6FAB2C6817DA69EE00DC352F /* Document.xib in Resources */,
+				6FD8CB2517DA6B7E000BE201 /* README.rdoc in Resources */,
 				6FAB2C6B17DA69EF00DC352F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		30759EBE46614B30A2823A66 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		C1E9868C0A2E43E1BF80200F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6FAB2C4A17DA69EE00DC352F /* Sources */ = {
@@ -171,6 +285,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FAB2C5E17DA69EE00DC352F /* main.m in Sources */,
+				6FD8CB2317DA6B7E000BE201 /* mongoose.c in Sources */,
+				6FD8CB2817DA6B7E000BE201 /* FeedResponse.m in Sources */,
+				6FD8CB2617DA6B7E000BE201 /* MasterViewController.m in Sources */,
+				6FD8CB2917DA6B7E000BE201 /* RecordingSession.m in Sources */,
+				6FD8CB2417DA6B7E000BE201 /* MongooseDaemon.m in Sources */,
 				6FAB2C6517DA69EE00DC352F /* Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +393,7 @@
 		};
 		6FAB2C6F17DA69EF00DC352F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -286,6 +406,7 @@
 		};
 		6FAB2C7017DA69EF00DC352F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -315,6 +436,7 @@
 				6FAB2C7017DA69EF00DC352F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
