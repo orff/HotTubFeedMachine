@@ -29,6 +29,12 @@
 
 #pragma mark helpers
 
+-(void)updateWithData:(NSData *)dataToUnarchive {
+    NSLog(@"loading new session");
+    
+    self.feedTextField.stringValue = @"new session loaded";
+}
+
 //called from main document to save the file
 -(NSData *)dataForSave {
     return [NSKeyedArchiver archivedDataWithRootObject:currentSession];
