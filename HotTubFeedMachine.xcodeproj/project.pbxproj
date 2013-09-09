@@ -114,17 +114,17 @@
 		6FAB2C5717DA69EE00DC352F /* HotTubFeedMachine */ = {
 			isa = PBXGroup;
 			children = (
-				6FD8CB0E17DA6B7E000BE201 /* constants.h */,
 				6FD8CB0F17DA6B7E000BE201 /* images */,
 				6FD8CB1117DA6B7E000BE201 /* libs */,
-				6FD8CB1917DA6B7E000BE201 /* MasterViewController.h */,
-				6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */,
-				6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */,
 				6FD8CB1C17DA6B7E000BE201 /* models */,
+				6FD8CB0E17DA6B7E000BE201 /* constants.h */,
 				6FAB2C6317DA69EE00DC352F /* Document.h */,
 				6FAB2C6417DA69EE00DC352F /* Document.m */,
 				6FAB2C6617DA69EE00DC352F /* Document.xib */,
 				6FAB2C6917DA69EF00DC352F /* MainMenu.xib */,
+				6FD8CB1917DA6B7E000BE201 /* MasterViewController.h */,
+				6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */,
+				6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */,
 				6FAB2C5817DA69EE00DC352F /* Supporting Files */,
 			);
 			path = HotTubFeedMachine;
