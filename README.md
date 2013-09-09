@@ -12,9 +12,10 @@ A feed recorder and playback app for mac OS X
   - wait for more things to be implemented
   
 - TODO:
-  - get saving / loading back finished up ( NSDocuments ) 
   - clean up UI around showing new data
   - get playback working
   
+- DONE:
+  - get saving / loading back finished up ( NSDocuments ) 
   
   
