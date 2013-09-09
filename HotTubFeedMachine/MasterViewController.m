@@ -29,24 +29,21 @@
 
 #pragma mark helpers
 
--(void)updateWithData:(NSData *)dataToUnarchive {
+-(void)updateWithSession:(RecordingSession *)newSession {
     NSLog(@"loading new session");
     
-    self.feedTextField.stringValue = @"new session loaded";
+    currentSession = nil;
+    currentSession = newSession;
+    
+    NSLog(@"session: %@", [currentSession description]);
+    
+    //update UI with new values
+    if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
+    [self updateProgressBarWithNewData];
 }
 
-//called from main document to save the file
--(NSData *)dataForSave {
-    return [NSKeyedArchiver archivedDataWithRootObject:currentSession];
-}
-
--(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
-    //update current session with new response
-    [currentSession addFeedResponse:newResponse];
-    
-    //update UI with new reponse
-    
-    //remove old tick marks    
+-(void)updateProgressBarWithNewData {
+    //remove old tick marks
     for (NSView *v in self.progressContainer.subviews) {
         if ([v.identifier isEqualToString:@"progressMarkers"]) [v removeFromSuperview];
     }
@@ -58,9 +55,8 @@
     
     //redraw tick marks
     int cnt = 0;
-    NSArray *currentResponses = [currentSession getFeedResponses];
-    for (FeedResponse *currentReponse in currentResponses) {
-        float barPercent = ((cnt + 1) / (currentResponses.count*1.0));
+    for (FeedResponse *currentReponse in currentSession.feedResponses) {
+        float barPercent = ((cnt + 1) / (currentSession.feedResponses.count*1.0));
         float currentBarXpos = barPercent * self.progressIndicator.frame.size.width;
         
         //NSLog(@"barPercent %2f currentXpos %2f", barPercent, currentBarXpos);
@@ -73,7 +69,14 @@
     }
     
     [self.progressContainer addSubview:progressMarkerContainer];
+}
 
+-(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
+    //update current session with new response
+    [currentSession.feedResponses addObject:newResponse];
+    
+    //update UI with new reponse
+    [self updateProgressBarWithNewData];
 }
 
 -(void)recordFeed {
@@ -107,17 +110,6 @@
     isServerup ? [self.statusTextField setStringValue:@"HTTP server started"] : [self.statusTextField setStringValue:@"HTTP server stopped"];
 }
 
--(void)createAppHomeFolder {
-    BOOL isDir = NO;
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    if(![fileManager fileExistsAtPath:DOCUMENTS_FOLDER isDirectory:&isDir])
-        if(![fileManager createDirectoryAtPath:DOCUMENTS_FOLDER withIntermediateDirectories:YES attributes:nil error:NULL])
-            [self.statusTextField setStringValue:[NSString stringWithFormat:@"Create folder: %@ FAILED!", DOCUMENTS_FOLDER]];
-        //create raw storage folder
-    [fileManager createDirectoryAtPath:RAW_DOCUMENTS_FOLDER withIntermediateDirectories:YES attributes:nil error:NULL];
-    [self.statusTextField setStringValue:[NSString stringWithFormat:@"folder created: %@", DOCUMENTS_FOLDER]];
-}
-
 -(void)setFeedStatusGood {
     isFeedURLValid = YES;
     [self.statusTextField setStringValue:@"Feed OK!"];
@@ -128,7 +120,7 @@
     [self.statusTextField setStringValue:@"Bad response for feed!"];
 }
 
--(void)alertBox:(NSString *)message {
++(void)alertBox:(NSString *)message {
     NSAlert* msgBox = [[NSAlert alloc] init];
     [msgBox setMessageText:message];
     [msgBox addButtonWithTitle: @"OK"];
@@ -148,12 +140,12 @@
     
     if (currentStatus == sIdol) {
         //complain:havent loaded OR recorded -- would be stopped
-        [self alertBox:@"You must load or record some feeds."];
+        [MasterViewController alertBox:@"You must load or record some feeds."];
     }
     
     if (currentStatus == sRecording) {
         //complain ?
-        [self alertBox:@"You must stop your recording."];
+        [MasterViewController alertBox:@"You must stop your recording."];
     }
     
     if (currentStatus == sStopped) {
@@ -185,8 +177,6 @@
     if (isFeedURLValid) {
         currentStatus = sRecording;
         
-        currentSession = [[RecordingSession alloc] initWithFeedURL:feedURL];
-        
         //start timer!
         NSMethodSignature *sgn = [self methodSignatureForSelector:@selector(recordFeed)];
         NSInvocation *inv = [NSInvocation invocationWithMethodSignature: sgn];
@@ -201,7 +191,7 @@
         
         [self.statusTextField setStringValue:@"Recording!"];
     } else {
-        [self alertBox:@"You must set a valid feed to record (and click SET)."];
+        [MasterViewController alertBox:@"You must set a valid feed to record (and click SET)."];
     }
 }
 
@@ -220,6 +210,9 @@
     }];
     
     [operation start];
+    
+    //update feedURL in session
+    currentSession.feedURL = self.feedTextField.stringValue;
 }
 
 -(IBAction)startServer:(id)sender {
@@ -239,6 +232,13 @@
     [self updateServerStatus];
 }
 
+//called from main document to save the file
+-(NSData *)dataForSave {
+    NSLog(@"saving data: %@", [currentSession description]);
+    return [NSKeyedArchiver archivedDataWithRootObject:currentSession];
+}
+
+
 #pragma mark controller pipeline
 -(void)loadView {
     [super loadView];
@@ -247,7 +247,6 @@
     self.progressIndicator.identifier = @"progressInd";
     
     [self updateServerStatus];
-    [self createAppHomeFolder];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

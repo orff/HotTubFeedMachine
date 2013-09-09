@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MasterViewController;
-@interface Document : NSDocument
+@class MasterViewController, RecordingSession;
+@interface Document : NSDocument {
+    RecordingSession *currentSession;
+}
 
 @property (nonatomic,strong) IBOutlet MasterViewController *masterViewController;
 

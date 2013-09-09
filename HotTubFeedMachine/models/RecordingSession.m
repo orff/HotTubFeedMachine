@@ -12,7 +12,7 @@
 @implementation RecordingSession
 
 -(void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:feedResponses forKey:@"feedResponses"];
+    [encoder encodeObject:self.feedResponses forKey:@"feedResponses"];
     
     [encoder encodeObject:self.startTime forKey:@"startTime"];
     [encoder encodeObject:self.endTime forKey:@"endTime"];
@@ -20,42 +20,35 @@
     
 }
 
--(id)initWithCoder:(NSCoder *)decoder {
-    NSString *feedURL = [decoder decodeObjectForKey:@"feedURL"];
+-(id)init {
+    self = [super init];
     
-    self = [self initWithFeedURL:feedURL];
-    
-    [feedResponses addObjectsFromArray:[decoder decodeObjectForKey:@"feedResponses"]];
-    _startTime = [decoder decodeObjectForKey:@"startTime"];
-    _endTime = [decoder decodeObjectForKey:@"endTime"];
+    _startTime = [NSDate date];
+    _feedResponses = [[NSMutableArray alloc] init];
     
     return self;
 }
 
--(NSArray *)getFeedResponses {
-    return [NSArray arrayWithArray:feedResponses];
-}
-
-- (id)initWithFeedURL:(NSString *)urlString
-{
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-        
-        feedResponses = [[NSMutableArray alloc] init];
-        
-        _startTime = [NSDate date];
-        _feedURL = urlString;
-    }
+-(id)initWithCoder:(NSCoder *)decoder {
+    self = [self init];
+    
+    [_feedResponses addObjectsFromArray:[decoder decodeObjectForKey:@"feedResponses"]];
+    _startTime = [decoder decodeObjectForKey:@"startTime"];
+    _endTime = [decoder decodeObjectForKey:@"endTime"];
+    _feedURL = [decoder decodeObjectForKey:@"feedURL"];
     
     return self;
 }
 
 -(void)addFeedResponse:(FeedResponse *)newResponse {
-    [feedResponses addObject:newResponse];
+    [_feedResponses addObject:newResponse];
     
     //update end time
     _endTime = newResponse.timeStamp;
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"feedURL: %@ responses %i", _feedURL, (int)_feedResponses.count];
 }
 
 @end

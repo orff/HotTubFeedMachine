@@ -11,17 +11,12 @@
 @class FeedResponse;
 
 @interface RecordingSession : NSObject <NSCoding> {
-    NSMutableArray *feedResponses;
+    
 }
 
 @property (readonly) NSDate *startTime;
-@property (readonly) NSString *feedURL; //eventually will need to be an array
+@property (nonatomic, strong) NSString *feedURL; //eventually will need to be an array
+@property (nonatomic, strong) NSMutableArray *feedResponses;
 @property (readonly) NSDate *endTime;
-
--(id)initWithFeedURL:(NSString *)urlString;
-
--(void)addFeedResponse:(FeedResponse *)newResponse;
-
--(NSArray *)getFeedResponses;
 
 @end

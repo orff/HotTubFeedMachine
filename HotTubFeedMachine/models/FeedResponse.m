@@ -42,13 +42,27 @@
 -(void)encodeWithCoder:(NSCoder *)encoder {    
     [encoder encodeObject:self.timeStamp forKey:@"timeStamp"];
     [encoder encodeObject:self.filename forKey:@"filename"];
+    
+    //add in the file itself, load it from the fileSystem in case it changed
+    NSString *results=[RAW_DOCUMENTS_FOLDER stringByAppendingPathComponent:self.filename];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:results]) {
+        NSData *databuffer = [[NSFileManager defaultManager] contentsAtPath:results];
+        [encoder encodeObject:databuffer forKey:@"fileContents"];
+    }
 }
 
--(id)initWithCoder:(NSCoder *)decoder {    
+-(id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
 
     self.timeStamp = [decoder decodeObjectForKey:@"timeStamp"];
     self.filename = [decoder decodeObjectForKey:@"filename"];
+    
+    //create the file
+    NSData *dataBuffer = [decoder decodeObjectForKey:@"fileContents"];
+    if (dataBuffer) {
+        NSString *results=[RAW_DOCUMENTS_FOLDER stringByAppendingPathComponent:self.filename];
+        [[NSFileManager defaultManager] createFileAtPath:results contents:dataBuffer attributes: nil];
+    }
     
     return self;
 }
