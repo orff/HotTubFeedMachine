@@ -12,9 +12,10 @@ A feed recorder and playback app for mac OS X
   - wait for more things to be implemented
   
 - TODO:
+  - auto start / stop web server on playback / exit app ( multiple versions of NSDocument a problem )
+  - detect fileType ( json / xml ) for output when writing
   - implement button under "scrubber" to skip ahead / forward in time during playback
   - implement FF 2x, FF 4x, FF 8x, etc
-  - detect fileType ( json / xml ) for output when writing
   - be able to trim recording start / end points
   
 - DONE:
