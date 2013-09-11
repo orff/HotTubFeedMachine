@@ -201,15 +201,16 @@
     NSURL *url = [NSURL URLWithString:self.feedTextField.stringValue];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    //TODO: convert this to a regular HTTP request
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFHTTPRequestOperation *reqOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [reqOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self setFeedStatusGood];
-        NSLog(@"Feed OK: IP Address: %@", [JSON valueForKeyPath:@"origin"]);
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Feed OK");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self setFeedStatusBad];
     }];
     
-    [operation start];
+    [reqOperation start];
     
     //update feedURL in session
     currentSession.feedURL = self.feedTextField.stringValue;
