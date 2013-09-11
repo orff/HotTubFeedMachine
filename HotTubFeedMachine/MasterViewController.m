@@ -139,6 +139,12 @@
 
 -(void)copyFileToDocumentsFolder:(NSString *)filenameToCopy {
     NSLog(@"copying file to documents folder: %@", filenameToCopy);
+    
+    NSString *source =[RAW_DOCUMENTS_FOLDER stringByAppendingPathComponent:filenameToCopy];
+    NSString *destination = [DOCUMENTS_FOLDER stringByAppendingPathComponent:@"output.xml"];
+    
+    if ( [[NSFileManager defaultManager] isReadableFileAtPath:source] )
+        [[NSFileManager defaultManager] copyItemAtPath:source toPath:destination error:nil];
 }
 
 -(void)copyFileForPlayBackTime:(NSDate *)playbackTime {
