@@ -11,6 +11,24 @@
 
 @implementation RecordingSession
 
+-(FeedResponse *)findFeedResponseToUseForPlaybackTime:(NSDate *)playbackTime {
+    //TODO: this is slow, use a while loop or something better to speed it up
+    int foundIndex=-1;
+    int cnt=0;
+    for (FeedResponse *currentResponse in self.feedResponses) {
+        if ([currentResponse.timeStamp isLessThan:playbackTime]) foundIndex = cnt;
+        cnt++;
+    }
+    if (foundIndex>-1) return [self.feedResponses objectAtIndex:foundIndex];
+    
+    //none found or no reponses
+    return nil;
+}
+
+-(double)totalTimeForSessionInSeconds {
+    return [self.endTime timeIntervalSince1970] - [self.startTime timeIntervalSince1970];
+}
+
 -(void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.feedResponses forKey:@"feedResponses"];
     

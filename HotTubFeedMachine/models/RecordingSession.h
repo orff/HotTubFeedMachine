@@ -21,5 +21,7 @@
 @property (nonatomic, readonly) NSMutableArray *feedResponses;
 
 -(void)addFeedResponse:(FeedResponse *)newResponse;
+-(FeedResponse *)findFeedResponseToUseForPlaybackTime:(NSDate *)playbackTime;
+-(double)totalTimeForSessionInSeconds;
 
 @end

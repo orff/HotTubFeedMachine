@@ -29,6 +29,7 @@
 
 #pragma mark helpers
 
+
 -(void)updateWithSession:(RecordingSession *)newSession {
     NSLog(@"loading new session");
     
@@ -40,7 +41,29 @@
     //update UI with new values
     if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
     
-    [self updateProgressBarWithNewData];
+    if (currentSession.feedResponses.count > 0) {
+        [self updateProgressBarWithNewData];
+        currentStatus = sStopped;
+    }
+}
+
+#pragma mark
+#pragma mark UI stuff
++(void)alertBox:(NSString *)message {
+    NSAlert* msgBox = [[NSAlert alloc] init];
+    [msgBox setMessageText:message];
+    [msgBox addButtonWithTitle: @"OK"];
+    [msgBox runModal];
+}
+
+-(void)updateServerStatus {
+    isServerup ? [self.statusTextField setStringValue:@"HTTP server started"] : [self.statusTextField setStringValue:@"HTTP server stopped"];
+}
+
+-(void)updatePlaybackProgress:(float)progressPercent {
+    NSLog(@"playback progress %2f", progressPercent);
+    
+    [self.progressIndicator setDoubleValue:progressPercent];
 }
 
 -(void)updateProgressBarWithNewData {
@@ -57,15 +80,11 @@
     //redraw tick marks
     int cnt = 0;
     int startTimeInSecs = [currentSession.startTime timeIntervalSince1970];
-    int endTimeInSecs = [currentSession.endTime timeIntervalSince1970];
-    
-    int totalTime = endTimeInSecs - startTimeInSecs;
-    
-    int padding = 2;
+    int padding = 2; // how mch to pad the end of the display
     
     for (FeedResponse *currentReponse in currentSession.feedResponses) {
         int responseTimeInSecs = [currentReponse.timeStamp timeIntervalSince1970];
-        float barPercent = ((responseTimeInSecs - startTimeInSecs)*1.0) / (totalTime*1.0);
+        float barPercent = ((responseTimeInSecs - startTimeInSecs)*1.0) / [currentSession totalTimeForSessionInSeconds];
         float currentBarXpos = (int)(barPercent * (self.progressIndicator.frame.size.width-padding));
         
         //NSLog(@"barPercent %2f currentXpos %2f", barPercent, currentBarXpos);
@@ -81,6 +100,8 @@
     [self.progressContainer addSubview:progressMarkerContainer];
 }
 
+#pragma mark
+#pragma mark Utility/Helpers
 -(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
     //update current session with new response
     [currentSession addFeedResponse:newResponse]; //dont update property directly since it needs to bump endTime
@@ -89,7 +110,7 @@
     [self updateProgressBarWithNewData];
 }
 
--(void)recordFeed {
+-(void)recordFeed { //called when record feed timer fires
     NSLog(@"recordFeed fired!");
     
     NSURL *url = [NSURL URLWithString:self.feedTextField.stringValue];
@@ -116,9 +137,53 @@
     [reqOperation start];
 }
 
--(void)updateServerStatus {
-    isServerup ? [self.statusTextField setStringValue:@"HTTP server started"] : [self.statusTextField setStringValue:@"HTTP server stopped"];
+-(void)copyFileToDocumentsFolder:(NSString *)filenameToCopy {
+    NSLog(@"copying file to documents folder: %@", filenameToCopy);
 }
+
+-(void)copyFileForPlayBackTime:(NSDate *)playbackTime {
+    
+    if ([playbackTime isEqualToDate:currentSession.startTime]) { //first time called in the beginning
+        //just copy the first file
+        
+        if (currentSession.feedResponses.count>0) {
+            lastFileCopiedForPlayback = ((FeedResponse *)[currentSession.feedResponses objectAtIndex:0]).filename; //filename of file copied
+            [self copyFileToDocumentsFolder:lastFileCopiedForPlayback];
+        }
+    } else {
+        // find the feed Response right before my time
+        FeedResponse *reponseToPlay = [currentSession findFeedResponseToUseForPlaybackTime:playbackTime];
+        
+        if (reponseToPlay && ![lastFileCopiedForPlayback isEqualToString:reponseToPlay.filename]) {
+            // copy that file
+            lastFileCopiedForPlayback = reponseToPlay.filename; //filename of file copied
+            [self copyFileToDocumentsFolder:lastFileCopiedForPlayback];
+        }
+    }
+    
+}
+
+-(void)playbackFeed { //called when playback timer fires
+    
+    //TODO: this will be 1.0 / timeInterval ( inverse ) for fast forward ??
+    double timeToAdd = playbackTimer.timeInterval;
+    currentPlaybackTime = [currentPlaybackTime dateByAddingTimeInterval:timeToAdd];
+    
+    double startTimeInSec = [currentSession.startTime timeIntervalSince1970];
+    double currentPlaybackTimeInSec = [currentPlaybackTime timeIntervalSince1970];
+    
+    float progress = ((currentPlaybackTimeInSec-startTimeInSec) / [currentSession totalTimeForSessionInSeconds]) * 100;
+    
+    if (progress > 100.0) { //at the end of playback
+        [self togglePlayback:self];
+        [self updatePlaybackProgress:100.0];
+    } else {
+        [self copyFileForPlayBackTime:currentPlaybackTime];
+        [self updatePlaybackProgress:progress];
+    }
+}
+
+
 
 -(void)setFeedStatusGood {
     isFeedURLValid = YES;
@@ -128,13 +193,6 @@
 -(void)setFeedStatusBad {
     isFeedURLValid = NO;
     [self.statusTextField setStringValue:@"Bad response for feed!"];
-}
-
-+(void)alertBox:(NSString *)message {
-    NSAlert* msgBox = [[NSAlert alloc] init];
-    [msgBox setMessageText:message];
-    [msgBox addButtonWithTitle: @"OK"];
-    [msgBox runModal];
 }
 
 #pragma mark IBActions
@@ -151,28 +209,52 @@
     if (currentStatus == sIdol) {
         //complain:havent loaded OR recorded -- would be stopped
         [MasterViewController alertBox:@"You must load or record some feeds."];
+        
+        return;
     }
     
     if (currentStatus == sRecording) {
         //complain ?
         [MasterViewController alertBox:@"You must stop your recording."];
+        
+        return;
     }
     
     if (currentStatus == sStopped) {
         //start playing
         
         currentStatus = sPlaying;
+        
+        currentPlaybackTime = currentSession.startTime;
+        [self copyFileForPlayBackTime:currentPlaybackTime];
+        
+        if (playbackTimer) { [playbackTimer invalidate]; playbackTimer = nil; }
+        
+        //TODO support faster speeds
+        NSMethodSignature *sgn = [self methodSignatureForSelector:@selector(recordFeed)];
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature: sgn];
+        [inv setTarget: self];
+        [inv setSelector:@selector(playbackFeed)];
+        
+        playbackTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 invocation:inv repeats:YES];
+//        [playbackTimer fire]; //fire one off now!
+        NSLog(@"timer started for playback %@", [playbackTimer description]);
+        
+        return;
     }
     
     if (currentStatus == sPlaying) {
         //stop playing
+        [self stopPlaying:self];
         
-        currentStatus = sPlaying;
+        return;
     }
 }
 
 -(IBAction)stopPlaying:(id)sender {
     NSLog(@"stop play button mashed");
+    currentStatus = sStopped;
+    if (playbackTimer) { [playbackTimer invalidate]; playbackTimer = nil; }
 }
 
 
@@ -187,13 +269,13 @@
     if (isFeedURLValid) {
         currentStatus = sRecording;
         
+        if (recordingTimer) { [recordingTimer invalidate]; recordingTimer = nil; }
+        
         //start timer!
         NSMethodSignature *sgn = [self methodSignatureForSelector:@selector(recordFeed)];
         NSInvocation *inv = [NSInvocation invocationWithMethodSignature: sgn];
         [inv setTarget: self];
         [inv setSelector:@selector(recordFeed)];
-        
-        if (recordingTimer) { [recordingTimer invalidate]; recordingTimer = nil; }
         
         recordingTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 invocation:inv repeats:YES];
         [recordingTimer fire]; //fire one off now!

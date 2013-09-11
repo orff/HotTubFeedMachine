@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "400451555.555115"
+         timestampString = "400628830.682967"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
          landmarkName = "-updateProgressBarWithNewData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,12 +34,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "400451590.351869"
+         timestampString = "400628830.682967"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "60"
-         endingLineNumber = "60"
+         startingLineNumber = "82"
+         endingLineNumber = "82"
          landmarkName = "-updateProgressBarWithNewData"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "HotTubFeedMachine/MasterViewController.m"
+         timestampString = "400630210.031357"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "182"
+         endingLineNumber = "182"
+         landmarkName = "-playbackFeed"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

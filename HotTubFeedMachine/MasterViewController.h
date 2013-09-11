@@ -28,6 +28,8 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
     bool isFeedURLValid;
     
     enumAppStatus currentStatus;
+    NSDate *currentPlaybackTime;
+    NSString *lastFileCopiedForPlayback;
     
     NSString *lastFeedResponse;
     NSDate *lastResposeTime;

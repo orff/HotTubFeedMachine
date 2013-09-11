@@ -444,6 +444,14 @@
 					<int key="connectionID">224</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">togglePlayback:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="653659192"/>
+					</object>
+					<int key="connectionID">235</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="547841008"/>
@@ -870,12 +878,12 @@
 								<int key="contentType">2</int>
 							</object>
 							<reference ref="135107928"/>
-							<reference ref="653659192"/>
 							<reference ref="399624802"/>
 							<reference ref="348932409"/>
 							<reference ref="774277086"/>
 							<reference ref="648175934"/>
 							<reference ref="753175194"/>
+							<reference ref="653659192"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1369,7 +1377,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">234</int>
+			<int key="maxID">235</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
