@@ -41,14 +41,14 @@
 }
 
 -(void)addFeedResponse:(FeedResponse *)newResponse {
-    [_feedResponses addObject:newResponse];
+    [self.feedResponses addObject:newResponse];
     
     //update end time
     _endTime = newResponse.timeStamp;
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"feedURL: %@ responses %i", _feedURL, (int)_feedResponses.count];
+    return [NSString stringWithFormat:@"feedURL: %@ responses %i startTime %@ endTime %@", _feedURL, (int)_feedResponses.count, [_startTime description], [_endTime description]];
 }
 
 @end

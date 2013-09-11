@@ -12,6 +12,6 @@
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/feedSimulator"]
 #define RAW_DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/feedSimulator/_responses"]
 
-#define RECORD_ONLY_DIFFS                  YES
+#define RECORD_ONLY_DIFFS                  NO
 
 #endif

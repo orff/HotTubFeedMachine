@@ -39,6 +39,7 @@
     
     //update UI with new values
     if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
+    
     [self updateProgressBarWithNewData];
 }
 
@@ -55,13 +56,22 @@
     
     //redraw tick marks
     int cnt = 0;
+    int startTimeInSecs = [currentSession.startTime timeIntervalSince1970];
+    int endTimeInSecs = [currentSession.endTime timeIntervalSince1970];
+    
+    int totalTime = endTimeInSecs - startTimeInSecs;
+    
+    int padding = 2;
+    
     for (FeedResponse *currentReponse in currentSession.feedResponses) {
-        float barPercent = ((cnt + 1) / (currentSession.feedResponses.count*1.0));
-        float currentBarXpos = barPercent * self.progressIndicator.frame.size.width;
+        int responseTimeInSecs = [currentReponse.timeStamp timeIntervalSince1970];
+        float barPercent = ((responseTimeInSecs - startTimeInSecs)*1.0) / (totalTime*1.0);
+        float currentBarXpos = (int)(barPercent * (self.progressIndicator.frame.size.width-padding));
         
         //NSLog(@"barPercent %2f currentXpos %2f", barPercent, currentBarXpos);
         
-        NSBox *verticalLine = [[NSBox alloc] initWithFrame:NSMakeRect(currentBarXpos, 15, 2, 30)];
+        NSBox *verticalLine = [[NSBox alloc] initWithFrame:NSMakeRect(currentBarXpos, 20, 1, 20)];
+        verticalLine.boxType = NSBoxSeparator;
         verticalLine.borderColor = [NSColor blackColor];
         [progressMarkerContainer addSubview:verticalLine];
         
@@ -73,7 +83,7 @@
 
 -(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
     //update current session with new response
-    [currentSession.feedResponses addObject:newResponse];
+    [currentSession addFeedResponse:newResponse]; //dont update property directly since it needs to bump endTime
     
     //update UI with new reponse
     [self updateProgressBarWithNewData];

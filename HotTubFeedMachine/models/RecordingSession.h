@@ -15,8 +15,11 @@
 }
 
 @property (readonly) NSDate *startTime;
-@property (nonatomic, strong) NSString *feedURL; //eventually will need to be an array
-@property (nonatomic, strong) NSMutableArray *feedResponses;
 @property (readonly) NSDate *endTime;
+
+@property (nonatomic, strong) NSString *feedURL; //eventually will need to be an array
+@property (nonatomic, readonly) NSMutableArray *feedResponses;
+
+-(void)addFeedResponse:(FeedResponse *)newResponse;
 
 @end
