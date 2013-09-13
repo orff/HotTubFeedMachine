@@ -51,4 +51,14 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
 -(void)updateWithSession:(RecordingSession *)newSession;
 -(NSData *)dataForSave;
 
+
+-(IBAction)progressAreaClickedAction:(id)sender;
+-(IBAction)stopRecording:(id)sender;
+-(IBAction)togglePlayback:(id)sender;
+-(IBAction)stopPlaying:(id)sender;
+-(IBAction)startRecording:(id)sender;
+-(IBAction)textFieldDidChange:(id)sender;
+-(IBAction)startServer:(id)sender;
+-(IBAction)stopServer:(id)sender;
+
 @end

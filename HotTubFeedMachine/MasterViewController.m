@@ -28,8 +28,6 @@
 @implementation MasterViewController
 
 #pragma mark helpers
-
-
 -(void)updateWithSession:(RecordingSession *)newSession {
     NSLog(@"loading new session");
     
@@ -206,7 +204,46 @@
     [self.statusTextField setStringValue:@"Bad response for feed!"];
 }
 
+#pragma mark mouse actions
+-(void)mouseDown:(NSEvent *)theEvent {
+    
+    NSLog(@"Mouse Down");
+    
+//    BOOL keepOn = YES;
+//    BOOL isInside = YES;
+//    NSPoint mouseLoc;
+//    
+//    while (keepOn) {
+//        
+//        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+//                    NSLeftMouseDraggedMask];
+//        mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+//        isInside = [self mouse:mouseLoc inRect:[self bounds]];
+//        
+//        switch ([theEvent type]) {
+//            case NSLeftMouseDragged:
+//                [self highlight:isInside];
+//                break;
+//            case NSLeftMouseUp:
+//                if (isInside) [self doSomethingSignificant];
+//                [self highlight:NO];
+//                keepOn = NO;
+//                break;
+//            default:
+//                /* Ignore any other kind of event. */
+//                break;
+//        }
+//        
+//    };
+//    
+//    return;
+}
+
 #pragma mark IBActions
+-(IBAction)progressAreaClickedAction:(id)sender {
+    NSLog(@"clicked progress ");
+}
+
 -(IBAction)stopRecording:(id)sender {
     currentStatus = sStopped;
     
@@ -344,6 +381,11 @@
 
 
 #pragma mark controller pipeline
+-(BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
 -(void)loadView {
     [super loadView];
     
