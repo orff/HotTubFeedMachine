@@ -197,8 +197,6 @@
     }
 }
 
-
-
 -(void)setFeedStatusGood {
     isFeedURLValid = YES;
     [self.statusTextField setStringValue:@"Feed OK!"];
@@ -350,6 +348,8 @@
 
 -(IBAction)stopServer:(id)sender {
     NSLog(@"stop server button mashed");
+    
+    if (!isServerup) return;
     
     [mongooseDaemon stopMongooseDaemon];
     isServerup = NO;
