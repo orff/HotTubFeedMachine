@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MongooseDaemon.h"
+#import "ScrubberControl.h"
 
 typedef NS_ENUM(uint8_t, enumAppStatus) {
     sIdol,
@@ -18,7 +19,7 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
 
 @class RecordingSession;
 
-@interface MasterViewController : NSViewController <NSTextFieldDelegate> {
+@interface MasterViewController : NSViewController <NSTextFieldDelegate, ScrubberControlDelegate> {
     MongooseDaemon    *mongooseDaemon;
     
     NSTimer *recordingTimer;

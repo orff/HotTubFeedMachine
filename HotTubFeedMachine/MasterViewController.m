@@ -18,6 +18,8 @@
 
 
 #import "MasterViewController.h"
+#import "ScrubberControl.h"
+
 
 #import "AFNetworking.h"
 #import "constants.h"
@@ -61,7 +63,7 @@
 -(void)updatePlaybackProgress:(float)progressPercent {
     NSLog(@"playback progress %2f", progressPercent);
     
-    [self.progressIndicator setDoubleValue:progressPercent];
+    [self.progressIndicator setDoubleValue:progressPercent*100];
 }
 
 -(void)updateProgressBarWithNewData {
@@ -72,6 +74,9 @@
     
     NSView *progressMarkerContainer = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, self.progressContainer.frame.size.width, self.progressContainer.frame.size.height)];
     progressMarkerContainer.identifier = @"progressMarkers";
+    //TODO: get this to work with constraints
+//    progressMarkerContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+//    progressMarkerContainer.translatesAutoresizingMaskIntoConstraints = YES;
     
     //TODO: base this on times, and test with a feed that is changing!
     
@@ -181,11 +186,11 @@
     double startTimeInSec = [currentSession.startTime timeIntervalSince1970];
     double currentPlaybackTimeInSec = [currentPlaybackTime timeIntervalSince1970];
     
-    float progress = ((currentPlaybackTimeInSec-startTimeInSec) / [currentSession totalTimeForSessionInSeconds]) * 100;
+    float progress = ((currentPlaybackTimeInSec-startTimeInSec) / [currentSession totalTimeForSessionInSeconds]);
     
     if (progress > 100.0) { //at the end of playback
         [self togglePlayback:self];
-        [self updatePlaybackProgress:100.0];
+        [self updatePlaybackProgress:1.0];
     } else {
         [self copyFileForPlayBackTime:currentPlaybackTime];
         [self updatePlaybackProgress:progress];
@@ -205,38 +210,17 @@
 }
 
 #pragma mark mouse actions
--(void)mouseDown:(NSEvent *)theEvent {
+-(void)scrubberDidUpdateAtPosition:(float)position {
+    NSLog(@"scrubber did click: %2f",position);
     
-    NSLog(@"Mouse Down");
+    float posPercent = position / self.progressContainer.frame.size.width;
+    float newTimeInSecs = [currentSession totalTimeForSessionInSeconds] * posPercent;
     
-//    BOOL keepOn = YES;
-//    BOOL isInside = YES;
-//    NSPoint mouseLoc;
-//    
-//    while (keepOn) {
-//        
-//        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
-//                    NSLeftMouseDraggedMask];
-//        mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-//        isInside = [self mouse:mouseLoc inRect:[self bounds]];
-//        
-//        switch ([theEvent type]) {
-//            case NSLeftMouseDragged:
-//                [self highlight:isInside];
-//                break;
-//            case NSLeftMouseUp:
-//                if (isInside) [self doSomethingSignificant];
-//                [self highlight:NO];
-//                keepOn = NO;
-//                break;
-//            default:
-//                /* Ignore any other kind of event. */
-//                break;
-//        }
-//        
-//    };
-//    
-//    return;
+    currentPlaybackTime = [currentSession.startTime dateByAddingTimeInterval:newTimeInSecs];
+    
+    [self copyFileForPlayBackTime:currentPlaybackTime];
+    [self updatePlaybackProgress:posPercent];
+
 }
 
 #pragma mark IBActions
@@ -381,16 +365,17 @@
 
 
 #pragma mark controller pipeline
--(BOOL)acceptsFirstResponder
-{
-    return YES;
-}
-
 -(void)loadView {
     [super loadView];
     
     //set progress indicator id
     self.progressIndicator.identifier = @"progressInd";
+    
+    CGRect scrubberFrame = self.progressContainer.frame;
+    scrubberFrame.origin = CGPointZero;
+    ScrubberControl *scrubberControl = [[ScrubberControl alloc] initWithFrame:scrubberFrame];
+    scrubberControl.delegate = self;
+    [self.progressContainer addSubview:scrubberControl];
     
     [self updateServerStatus];
 }
