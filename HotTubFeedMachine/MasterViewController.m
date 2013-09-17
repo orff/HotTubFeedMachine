@@ -23,50 +23,21 @@
 
 #import "AFNetworking.h"
 #import "constants.h"
+#import "HTUtils.h"
 
 #import "RecordingSession.h"
 #import "FeedResponse.h"
 
 @implementation MasterViewController
 
-#pragma mark helpers
--(void)updateWithSession:(RecordingSession *)newSession {
-    NSLog(@"loading new session");
-    
-    currentSession = nil;
-    currentSession = newSession;
-    
-    NSLog(@"session: %@", [currentSession description]);
-    
-    //update UI with new values
-    if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
-    
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm:ss"];
-    
-    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentSession.startTime],[dateFormatter stringFromDate:currentSession.endTime]];
-    
-    if (currentSession.feedResponses.count > 0) {
-        [self updateProgressBarWithNewData];
-        currentStatus = sStopped;
-    }
-}
-
 #pragma mark
 #pragma mark UI stuff
-+(void)alertBox:(NSString *)message {
-    NSAlert* msgBox = [[NSAlert alloc] init];
-    [msgBox setMessageText:message];
-    [msgBox addButtonWithTitle: @"OK"];
-    [msgBox runModal];
-}
-
 -(void)updateServerStatus {
     isServerup ? [self.statusTextField setStringValue:@"HTTP server started"] : [self.statusTextField setStringValue:@"HTTP server stopped"];
 }
 
 -(void)updatePlaybackProgress:(float)progressPercent {
-    NSLog(@"playback progress %2f", progressPercent);
+    //NSLog(@"playback progress %2f", progressPercent);
     
     //update times
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
@@ -101,66 +72,33 @@
     
     [progressMarkerContainer drawTicks];
     
-    [self addAutoLayoutConstraintsToView:progressMarkerContainer withSuperView:self.progressContainer];
-}
-
--(void)addAutoLayoutConstraintsToView:(NSView *)subView withSuperView:(NSView *)superview {
-    
-    [subView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [superview addSubview:subView];
-    
-    //[progressMarkerContainer setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
-    
-//    NSDictionary *views = NSDictionaryOfVariableBindings(subView);
-//    [self.progressContainer addConstraints:
-//     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[progressMarkerContainer]|"
-//                                             options:0
-//                                             metrics:nil
-//                                               views:views]];
-//    
-//    [self.progressContainer addConstraints:
-//     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[progressMarkerContainer]|"
-//                                             options:0
-//                                             metrics:nil
-//                                               views:views]];
-    
-    [self.progressContainer addConstraint:
-     [NSLayoutConstraint constraintWithItem:subView
-                                  attribute:NSLayoutAttributeWidth
-                                  relatedBy:NSLayoutRelationEqual
-                                     toItem:self.progressContainer
-                                  attribute:NSLayoutAttributeWidth
-                                 multiplier:1
-                                   constant:0]];
-    [self.progressContainer addConstraint:
-     [NSLayoutConstraint constraintWithItem:subView
-                                  attribute:NSLayoutAttributeHeight
-                                  relatedBy:NSLayoutRelationEqual
-                                     toItem:self.progressContainer
-                                  attribute:NSLayoutAttributeHeight
-                                 multiplier:1
-                                   constant:0]];
-    
-    [self addEdgeConstraint:NSLayoutAttributeLeft superview:superview subview:subView];
-    [self addEdgeConstraint:NSLayoutAttributeRight superview:superview subview:subView];
-    [self addEdgeConstraint:NSLayoutAttributeTop superview:superview subview:subView];
-    [self addEdgeConstraint:NSLayoutAttributeBottom superview:superview subview:subView];
-    
-    [subView updateConstraints];
-}
-
--(void)addEdgeConstraint:(NSLayoutAttribute)edge superview:(NSView *)superview subview:(NSView *)subview {
-    [superview addConstraint:[NSLayoutConstraint constraintWithItem:subview
-                                                          attribute:edge
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:superview
-                                                          attribute:edge
-                                                         multiplier:1
-                                                           constant:0]];
+    [HTUtils addAutoLayoutConstraintsToView:progressMarkerContainer withSuperView:self.progressContainer];
 }
 
 #pragma mark
 #pragma mark Utility/Helpers
+-(void)updateWithSession:(RecordingSession *)newSession {
+    NSLog(@"loading new session");
+    
+    currentSession = nil;
+    currentSession = newSession;
+    
+    NSLog(@"session: %@", [currentSession description]);
+    
+    //update UI with new values
+    if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm:ss"];
+    
+    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentSession.startTime],[dateFormatter stringFromDate:currentSession.endTime]];
+    
+    if (currentSession.feedResponses.count > 0) {
+        [self updateProgressBarWithNewData];
+        currentStatus = sStopped;
+    }
+}
+
 -(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
     //update current session with new response
     [currentSession addFeedResponse:newResponse]; //dont update property directly since it needs to bump endTime
@@ -196,21 +134,6 @@
     [reqOperation start];
 }
 
--(void)copyFileToDocumentsFolder:(NSString *)filenameToCopy {
-    NSLog(@"copying file to documents folder: %@", filenameToCopy);
-    
-    NSString *source =[RAW_DOCUMENTS_FOLDER stringByAppendingPathComponent:filenameToCopy];
-    NSString *destination = [DOCUMENTS_FOLDER stringByAppendingPathComponent:@"output.xml"];
-    
-    if ( [[NSFileManager defaultManager] isReadableFileAtPath:source]) {
-        //if old file is at destination, delete it
-        if ( [[NSFileManager defaultManager] isReadableFileAtPath:destination])
-            [[NSFileManager defaultManager] removeItemAtPath:destination error:nil];
-        
-        [[NSFileManager defaultManager] copyItemAtPath:source toPath:destination error:nil];
-    }
-}
-
 -(void)copyFileForPlayBackTime:(NSDate *)playbackTime {
     
     if ([playbackTime isEqualToDate:currentSession.startTime]) { //first time called in the beginning
@@ -218,7 +141,7 @@
         
         if (currentSession.feedResponses.count>0) {
             lastFileCopiedForPlayback = ((FeedResponse *)[currentSession.feedResponses objectAtIndex:0]).filename; //filename of file copied
-            [self copyFileToDocumentsFolder:lastFileCopiedForPlayback];
+            [FeedResponse copyFileToDocumentsFolder:lastFileCopiedForPlayback];
         }
     } else {
         // find the feed Response right before my time
@@ -227,7 +150,7 @@
         if (reponseToPlay && ![lastFileCopiedForPlayback isEqualToString:reponseToPlay.filename]) {
             // copy that file
             lastFileCopiedForPlayback = reponseToPlay.filename; //filename of file copied
-            [self copyFileToDocumentsFolder:lastFileCopiedForPlayback];
+            [FeedResponse copyFileToDocumentsFolder:lastFileCopiedForPlayback];
         }
     }
     
@@ -263,10 +186,7 @@
     [self.statusTextField setStringValue:@"Bad response for feed!"];
 }
 
-#pragma mark mouse actions
--(void)scrubberDidUpdateAtPosition:(float)position {
-    NSLog(@"scrubber did click: %2f",position);
-    
+-(void)scrubberDidUpdateAtPosition:(float)position { //called fromm ScrubberControl    
     float posPercent = position / self.progressContainer.frame.size.width;
     float newTimeInSecs = [currentSession totalTimeForSessionInSeconds] * posPercent;
     
@@ -294,14 +214,14 @@
     
     if (currentStatus == sIdol) {
         //complain:havent loaded OR recorded -- would be stopped
-        [MasterViewController alertBox:@"You must load or record some feeds."];
+        [HTUtils alertBox:@"You must load or record some feeds."];
         
         return;
     }
     
     if (currentStatus == sRecording) {
         //complain ?
-        [MasterViewController alertBox:@"You must stop your recording."];
+        [HTUtils alertBox:@"You must stop your recording."];
         
         return;
     }
@@ -369,7 +289,7 @@
         
         [self.statusTextField setStringValue:@"Recording!"];
     } else {
-        [MasterViewController alertBox:@"You must set a valid feed to record (and click SET)."];
+        [HTUtils alertBox:@"You must set a valid feed to record (and click SET)."];
     }
 }
 
@@ -436,7 +356,7 @@
     scrubberControl.delegate = self;
     [self.progressContainer addSubview:scrubberControl];
     
-    [self addAutoLayoutConstraintsToView:scrubberControl withSuperView:self.progressContainer];
+    [HTUtils addAutoLayoutConstraintsToView:scrubberControl withSuperView:self.progressContainer];
     
     [self updateServerStatus];
 }

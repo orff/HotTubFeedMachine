@@ -41,7 +41,7 @@
 }
 
 -(void)mouseDragged:(NSEvent *)event {
-    NSLog(@"mouse dragged on Scrubber control");
+    //NSLog(@"mouse dragged on Scrubber control");
     NSPoint clickLocation;
     BOOL itemHit=NO;
     
@@ -60,7 +60,7 @@
 
 -(void)mouseDown:(NSEvent *)event
 {
-    NSLog(@"mouse Down on Scrubber control");
+    //NSLog(@"mouse Down on Scrubber control");
     NSPoint clickLocation;
     BOOL itemHit=NO;
     
@@ -100,9 +100,7 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect
-{
-    // Drawing code here.
-    
+{    
     //draw red for debugging
     if (DEBUG_DRAW_CONTAINERS) {
         [[NSColor redColor] setFill];

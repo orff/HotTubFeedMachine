@@ -48,11 +48,8 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
 @property (strong, nonatomic) IBOutlet NSView *progressContainer;
 @property (strong, nonatomic) IBOutlet NSProgressIndicator *progressIndicator;
 
-+(void)alertBox:(NSString *)message;
-
 -(void)updateWithSession:(RecordingSession *)newSession;
 -(NSData *)dataForSave;
-
 
 -(IBAction)progressAreaClickedAction:(id)sender;
 -(IBAction)stopRecording:(id)sender;

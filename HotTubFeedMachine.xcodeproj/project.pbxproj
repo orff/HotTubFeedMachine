@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F37CF3917E8ED8300A0C899 /* ScrubberMarkersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F37CF3817E8ED8300A0C899 /* ScrubberMarkersView.m */; };
+		6F37CF3C17E9046A00A0C899 /* HTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F37CF3B17E9046A00A0C899 /* HTUtils.m */; };
 		6F929E9817E3A0EF00A2E724 /* ScrubberControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F929E9717E3A0EF00A2E724 /* ScrubberControl.m */; };
 		6FAB2C5217DA69EE00DC352F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FAB2C5117DA69EE00DC352F /* Cocoa.framework */; };
 		6FAB2C5C17DA69EE00DC352F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB2C5A17DA69EE00DC352F /* InfoPlist.strings */; };
@@ -32,6 +33,8 @@
 		52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		6F37CF3717E8ED8300A0C899 /* ScrubberMarkersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrubberMarkersView.h; sourceTree = "<group>"; };
 		6F37CF3817E8ED8300A0C899 /* ScrubberMarkersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrubberMarkersView.m; sourceTree = "<group>"; };
+		6F37CF3A17E9046A00A0C899 /* HTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTUtils.h; sourceTree = "<group>"; };
+		6F37CF3B17E9046A00A0C899 /* HTUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTUtils.m; sourceTree = "<group>"; };
 		6F929E9617E3A0EF00A2E724 /* ScrubberControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrubberControl.h; sourceTree = "<group>"; };
 		6F929E9717E3A0EF00A2E724 /* ScrubberControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrubberControl.m; sourceTree = "<group>"; };
 		6FAB2C4E17DA69EE00DC352F /* HotTubFeedMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotTubFeedMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,11 +126,13 @@
 				6FD8CB0F17DA6B7E000BE201 /* images */,
 				6FD8CB1117DA6B7E000BE201 /* libs */,
 				6FD8CB1C17DA6B7E000BE201 /* models */,
-				6FD8CB0E17DA6B7E000BE201 /* constants.h */,
 				6FAB2C6317DA69EE00DC352F /* Document.h */,
 				6FAB2C6417DA69EE00DC352F /* Document.m */,
 				6FAB2C6617DA69EE00DC352F /* Document.xib */,
 				6FAB2C6917DA69EF00DC352F /* MainMenu.xib */,
+				6FD8CB0E17DA6B7E000BE201 /* constants.h */,
+				6F37CF3A17E9046A00A0C899 /* HTUtils.h */,
+				6F37CF3B17E9046A00A0C899 /* HTUtils.m */,
 				6FD8CB1917DA6B7E000BE201 /* MasterViewController.h */,
 				6FD8CB1A17DA6B7E000BE201 /* MasterViewController.m */,
 				6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */,
@@ -303,6 +308,7 @@
 				6FAB2C6517DA69EE00DC352F /* Document.m in Sources */,
 				6F929E9817E3A0EF00A2E724 /* ScrubberControl.m in Sources */,
 				6F37CF3917E8ED8300A0C899 /* ScrubberMarkersView.m in Sources */,
+				6F37CF3C17E9046A00A0C899 /* HTUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

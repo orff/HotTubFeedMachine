@@ -61,7 +61,7 @@ int padding = 2; // how mch to pad the end of the display
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    NSLog(@"scrubberMarker drawRect");
+    //NSLog(@"scrubberMarker drawRect");
     // Drawing code here.
     if (DEBUG_DRAW_CONTAINERS) {
         [[NSColor colorWithCalibratedRed:0.0 green:0.0 blue:1.0 alpha:0.5] setFill];

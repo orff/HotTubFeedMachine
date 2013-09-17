@@ -15,6 +15,7 @@
 
 @property (readonly) bool saved;
 
++(void)copyFileToDocumentsFolder:(NSString *)filenameToCopy;
 -(id)initWithFeedResponse:(NSString *)feedResponse andURL:(NSString *)urlString;
 
 @end

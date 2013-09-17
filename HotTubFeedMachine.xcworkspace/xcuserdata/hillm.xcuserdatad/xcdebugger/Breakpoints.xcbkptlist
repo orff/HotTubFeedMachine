@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/Document.m"
-         timestampString = "400453107.191699"
+         timestampString = "401147287.3123"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
+         startingLineNumber = "88"
+         endingLineNumber = "88"
          landmarkName = "-readFromData:ofType:error:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401145162.188685"
+         timestampString = "401147487.403531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
          landmarkName = "-updateProgressBarWithNewData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401145162.188685"
+         timestampString = "401147487.403531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
          landmarkName = "-updateProgressBarWithNewData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401145162.188685"
+         timestampString = "401147487.403531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "252"
-         endingLineNumber = "252"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
          landmarkName = "-playbackFeed"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401145162.188685"
+         timestampString = "401147487.403531"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "276"
-         endingLineNumber = "276"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-scrubberDidUpdateAtPosition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/ScrubberControl.m"
-         timestampString = "401142011.952012"
+         timestampString = "401147566.224621"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "108"
-         endingLineNumber = "108"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-drawRect:"
          landmarkType = "5">
       </FileBreakpoint>

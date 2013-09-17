@@ -10,6 +10,7 @@
 #import "MasterViewController.h"
 #import "RecordingSession.h"
 #import "constants.h"
+#import "HTUtils.h"
 
 @implementation Document
 
@@ -18,11 +19,11 @@
     NSFileManager *fileManager= [NSFileManager defaultManager];
     if(![fileManager fileExistsAtPath:DOCUMENTS_FOLDER isDirectory:&isDir]) {
         if(![fileManager createDirectoryAtPath:DOCUMENTS_FOLDER withIntermediateDirectories:YES attributes:nil error:NULL]) {
-            [MasterViewController alertBox:[NSString stringWithFormat:@"Create folder: %@ FAILED!", DOCUMENTS_FOLDER]];
+            [HTUtils alertBox:[NSString stringWithFormat:@"Create folder: %@ FAILED!", DOCUMENTS_FOLDER]];
         } else {
             //create raw storage folder
             if(![fileManager createDirectoryAtPath:RAW_DOCUMENTS_FOLDER withIntermediateDirectories:YES attributes:nil error:NULL])
-                [MasterViewController alertBox:[NSString stringWithFormat:@"Create raw docs folder: %@ FAILED!", RAW_DOCUMENTS_FOLDER]];
+                [HTUtils alertBox:[NSString stringWithFormat:@"Create raw docs folder: %@ FAILED!", RAW_DOCUMENTS_FOLDER]];
         }
     }
 }

@@ -11,6 +11,21 @@
 
 @implementation FeedResponse
 
++(void)copyFileToDocumentsFolder:(NSString *)filenameToCopy {
+    NSLog(@"copying file to documents folder: %@", filenameToCopy);
+    
+    NSString *source =[RAW_DOCUMENTS_FOLDER stringByAppendingPathComponent:filenameToCopy];
+    NSString *destination = [DOCUMENTS_FOLDER stringByAppendingPathComponent:@"output.xml"];
+    
+    if ( [[NSFileManager defaultManager] isReadableFileAtPath:source]) {
+        //if old file is at destination, delete it
+        if ( [[NSFileManager defaultManager] isReadableFileAtPath:destination])
+            [[NSFileManager defaultManager] removeItemAtPath:destination error:nil];
+        
+        [[NSFileManager defaultManager] copyItemAtPath:source toPath:destination error:nil];
+    }
+}
+
 -(NSString *)filenameForURL:(NSString *)urlString {
     //TODO: use URL as part of the filename
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
