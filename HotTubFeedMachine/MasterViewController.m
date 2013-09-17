@@ -233,7 +233,7 @@
     
     float progress = ((currentPlaybackTimeInSec-startTimeInSec) / [currentSession totalTimeForSessionInSeconds]);
     
-    if (progress > 100.0) { //at the end of playback
+    if (progress > 1.0) { //at the end of playback
         [self togglePlayback:self];
         [self updatePlaybackProgress:1.0];
     } else {

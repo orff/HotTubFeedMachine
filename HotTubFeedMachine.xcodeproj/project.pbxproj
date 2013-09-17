@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F37CF3917E8ED8300A0C899 /* ScrubberMarkersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F37CF3817E8ED8300A0C899 /* ScrubberMarkersView.m */; };
 		6F929E9817E3A0EF00A2E724 /* ScrubberControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F929E9717E3A0EF00A2E724 /* ScrubberControl.m */; };
 		6FAB2C5217DA69EE00DC352F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FAB2C5117DA69EE00DC352F /* Cocoa.framework */; };
 		6FAB2C5C17DA69EE00DC352F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB2C5A17DA69EE00DC352F /* InfoPlist.strings */; };
@@ -29,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		52D7E5C5E6414CA793B88EEA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		6F37CF3717E8ED8300A0C899 /* ScrubberMarkersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrubberMarkersView.h; sourceTree = "<group>"; };
+		6F37CF3817E8ED8300A0C899 /* ScrubberMarkersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrubberMarkersView.m; sourceTree = "<group>"; };
 		6F929E9617E3A0EF00A2E724 /* ScrubberControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrubberControl.h; sourceTree = "<group>"; };
 		6F929E9717E3A0EF00A2E724 /* ScrubberControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrubberControl.m; sourceTree = "<group>"; };
 		6FAB2C4E17DA69EE00DC352F /* HotTubFeedMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotTubFeedMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +133,8 @@
 				6FD8CB1B17DA6B7E000BE201 /* MasterViewController.xib */,
 				6F929E9617E3A0EF00A2E724 /* ScrubberControl.h */,
 				6F929E9717E3A0EF00A2E724 /* ScrubberControl.m */,
+				6F37CF3717E8ED8300A0C899 /* ScrubberMarkersView.h */,
+				6F37CF3817E8ED8300A0C899 /* ScrubberMarkersView.m */,
 				6FAB2C5817DA69EE00DC352F /* Supporting Files */,
 			);
 			path = HotTubFeedMachine;
@@ -297,6 +302,7 @@
 				6FD8CB2417DA6B7E000BE201 /* MongooseDaemon.m in Sources */,
 				6FAB2C6517DA69EE00DC352F /* Document.m in Sources */,
 				6F929E9817E3A0EF00A2E724 /* ScrubberControl.m in Sources */,
+				6F37CF3917E8ED8300A0C899 /* ScrubberMarkersView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
