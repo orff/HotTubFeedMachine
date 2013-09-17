@@ -7,11 +7,13 @@ A feed recorder and playback app for mac OS X
 - run #pod install
 
 - using the app
-  -recording:
+
+ -recording:
     - put in your feed URL and click "use" button to verify this feed
     - hit the record button to record the feed
     - save with CMD-S or menu
-  -playback:
+ 
+ -playback:
     - open old session
     - click "start web server"
     - hit play button for "realtime" playback
