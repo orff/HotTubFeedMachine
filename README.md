@@ -6,7 +6,7 @@ A feed recorder and playback app for mac OS X
 - install CocoaPods
 - run #pod install
 
-- using the app
+- USING THE APP:
 
  -recording:
     - put in your feed URL and click "use" button to verify this feed
