@@ -7,6 +7,7 @@
 //
 
 #import "ScrubberControl.h"
+#import "constants.h"
 
 @implementation ScrubberControl
 
@@ -101,6 +102,14 @@
 - (void)drawRect:(NSRect)dirtyRect
 {
     // Drawing code here.
+    
+    //draw red for debugging
+    if (DEBUG_DRAW_CONTAINERS) {
+        [[NSColor redColor] setFill];
+        NSRectFill(dirtyRect);
+        [super drawRect:dirtyRect];
+    }
+    
 }
 
 @end

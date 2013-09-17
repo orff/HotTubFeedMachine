@@ -13,5 +13,6 @@
 #define RAW_DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/feedSimulator/_responses"]
 
 #define RECORD_ONLY_DIFFS                  NO
+#define DEBUG_DRAW_CONTAINERS              NO
 
 #endif

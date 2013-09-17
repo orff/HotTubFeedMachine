@@ -19,7 +19,7 @@
 
 #import "MasterViewController.h"
 #import "ScrubberControl.h"
-
+#import "ScrubberMarkersView.h"
 
 #import "AFNetworking.h"
 #import "constants.h"
@@ -72,35 +72,80 @@
         if ([v.identifier isEqualToString:@"progressMarkers"]) [v removeFromSuperview];
     }
     
-    NSView *progressMarkerContainer = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, self.progressContainer.frame.size.width, self.progressContainer.frame.size.height)];
+    ScrubberMarkersView *progressMarkerContainer = [[ScrubberMarkersView alloc] initWithFrame:NSMakeRect(0, 0, self.progressContainer.frame.size.width, self.progressContainer.frame.size.height)];
     progressMarkerContainer.identifier = @"progressMarkers";
-    //TODO: get this to work with constraints
-//    progressMarkerContainer.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-//    progressMarkerContainer.translatesAutoresizingMaskIntoConstraints = YES;
     
-    //TODO: base this on times, and test with a feed that is changing!
-    
-    //redraw tick marks
+    //set tick marks in custom view
     int cnt = 0;
     int startTimeInSecs = [currentSession.startTime timeIntervalSince1970];
-    int padding = 2; // how mch to pad the end of the display
     
     for (FeedResponse *currentReponse in currentSession.feedResponses) {
         int responseTimeInSecs = [currentReponse.timeStamp timeIntervalSince1970];
         float barPercent = ((responseTimeInSecs - startTimeInSecs)*1.0) / [currentSession totalTimeForSessionInSeconds];
-        float currentBarXpos = (int)(barPercent * (self.progressIndicator.frame.size.width-padding));
         
-        //NSLog(@"barPercent %2f currentXpos %2f", barPercent, currentBarXpos);
-        
-        NSBox *verticalLine = [[NSBox alloc] initWithFrame:NSMakeRect(currentBarXpos, 20, 1, 20)];
-        verticalLine.boxType = NSBoxSeparator;
-        verticalLine.borderColor = [NSColor blackColor];
-        [progressMarkerContainer addSubview:verticalLine];
+        [progressMarkerContainer.tickMarkPercents addObject:[NSNumber numberWithFloat:barPercent]];
         
         cnt++;
     }
     
-    [self.progressContainer addSubview:progressMarkerContainer];
+    [progressMarkerContainer drawTicks];
+    
+    [self addAutoLayoutConstraintsToView:progressMarkerContainer withSuperView:self.progressContainer];
+}
+
+-(void)addAutoLayoutConstraintsToView:(NSView *)subView withSuperView:(NSView *)superview {
+    
+    [subView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [superview addSubview:subView];
+    
+    //[progressMarkerContainer setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+    
+//    NSDictionary *views = NSDictionaryOfVariableBindings(subView);
+//    [self.progressContainer addConstraints:
+//     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[progressMarkerContainer]|"
+//                                             options:0
+//                                             metrics:nil
+//                                               views:views]];
+//    
+//    [self.progressContainer addConstraints:
+//     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[progressMarkerContainer]|"
+//                                             options:0
+//                                             metrics:nil
+//                                               views:views]];
+    
+    [self.progressContainer addConstraint:
+     [NSLayoutConstraint constraintWithItem:subView
+                                  attribute:NSLayoutAttributeWidth
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:self.progressContainer
+                                  attribute:NSLayoutAttributeWidth
+                                 multiplier:1
+                                   constant:0]];
+    [self.progressContainer addConstraint:
+     [NSLayoutConstraint constraintWithItem:subView
+                                  attribute:NSLayoutAttributeHeight
+                                  relatedBy:NSLayoutRelationEqual
+                                     toItem:self.progressContainer
+                                  attribute:NSLayoutAttributeHeight
+                                 multiplier:1
+                                   constant:0]];
+    
+    [self addEdgeConstraint:NSLayoutAttributeLeft superview:superview subview:subView];
+    [self addEdgeConstraint:NSLayoutAttributeRight superview:superview subview:subView];
+    [self addEdgeConstraint:NSLayoutAttributeTop superview:superview subview:subView];
+    [self addEdgeConstraint:NSLayoutAttributeBottom superview:superview subview:subView];
+    
+    [subView updateConstraints];
+}
+
+-(void)addEdgeConstraint:(NSLayoutAttribute)edge superview:(NSView *)superview subview:(NSView *)subview {
+    [superview addConstraint:[NSLayoutConstraint constraintWithItem:subview
+                                                          attribute:edge
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:superview
+                                                          attribute:edge
+                                                         multiplier:1
+                                                           constant:0]];
 }
 
 #pragma mark
@@ -341,6 +386,8 @@
 -(IBAction)startServer:(id)sender {
     NSLog(@"start server button mashed");
     
+    if (isServerup) return; //is already running
+    
     isServerup = YES;
     [self updateServerStatus];
     [mongooseDaemon startMongooseDaemon:@"8080"];
@@ -371,11 +418,14 @@
     //set progress indicator id
     self.progressIndicator.identifier = @"progressInd";
     
+    //add in the NSControl subClass to handle mouse events for scrubbing
     CGRect scrubberFrame = self.progressContainer.frame;
     scrubberFrame.origin = CGPointZero;
     ScrubberControl *scrubberControl = [[ScrubberControl alloc] initWithFrame:scrubberFrame];
     scrubberControl.delegate = self;
     [self.progressContainer addSubview:scrubberControl];
+    
+    [self addAutoLayoutConstraintsToView:scrubberControl withSuperView:self.progressContainer];
     
     [self updateServerStatus];
 }
