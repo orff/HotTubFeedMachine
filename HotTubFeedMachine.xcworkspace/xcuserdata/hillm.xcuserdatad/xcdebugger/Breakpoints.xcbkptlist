@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401141576.090472"
+         timestampString = "401145162.188685"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "-updateProgressBarWithNewData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401141576.090472"
+         timestampString = "401145162.188685"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "80"
-         endingLineNumber = "80"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "-updateProgressBarWithNewData"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401142991.774793"
+         timestampString = "401145162.188685"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "241"
-         endingLineNumber = "241"
+         startingLineNumber = "252"
+         endingLineNumber = "252"
          landmarkName = "-playbackFeed"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "HotTubFeedMachine/MasterViewController.m"
-         timestampString = "401142991.774793"
+         timestampString = "401145162.188685"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "265"
-         endingLineNumber = "265"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
          landmarkName = "-scrubberDidUpdateAtPosition:"
          landmarkType = "5">
       </FileBreakpoint>

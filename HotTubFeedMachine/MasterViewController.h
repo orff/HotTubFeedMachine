@@ -39,8 +39,9 @@ typedef NS_ENUM(uint8_t, enumAppStatus) {
 }
 
 @property (strong, nonatomic) IBOutlet NSTextField *statusTextField;
-
 @property (strong, nonatomic) IBOutlet NSTextField *feedTextField;
+
+@property (strong, nonatomic) IBOutlet NSTextField *endimeTextField;
 
 @property (strong, nonatomic) IBOutlet NSButton *recordButton;
 

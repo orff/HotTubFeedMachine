@@ -41,6 +41,11 @@
     //update UI with new values
     if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
     
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm:ss"];
+    
+    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentSession.startTime],[dateFormatter stringFromDate:currentSession.endTime]];
+    
     if (currentSession.feedResponses.count > 0) {
         [self updateProgressBarWithNewData];
         currentStatus = sStopped;
@@ -63,6 +68,12 @@
 -(void)updatePlaybackProgress:(float)progressPercent {
     NSLog(@"playback progress %2f", progressPercent);
     
+    //update times
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm:ss"];
+    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentPlaybackTime],[dateFormatter stringFromDate:currentSession.endTime]];
+    
+    //update progress bar
     [self.progressIndicator setDoubleValue:progressPercent*100];
 }
 
