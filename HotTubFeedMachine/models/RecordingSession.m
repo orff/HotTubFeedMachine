@@ -43,6 +43,7 @@
 -(id)init {
     self = [super init];
     
+    _feedType = DEFAULT_FEED_TYPE;
     _startTime = [NSDate date];
     _feedResponses = [[NSMutableArray alloc] init];
     
