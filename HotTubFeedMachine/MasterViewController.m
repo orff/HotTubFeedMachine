@@ -218,10 +218,6 @@
 }
 
 #pragma mark IBActions
--(IBAction)progressAreaClickedAction:(id)sender {
-    NSLog(@"clicked progress ");
-}
-
 -(IBAction)stopRecording:(id)sender {
     currentStatus = sStopped;
     
