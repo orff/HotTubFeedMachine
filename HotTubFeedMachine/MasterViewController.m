@@ -120,7 +120,7 @@
             lastFeedResponse = operation.responseString;
             NSLog(@"New response from feed");
             //NSLog(@"storing response: %@", lastFeedResponse);
-            FeedResponse *fReponse = [[FeedResponse alloc] initWithFeedResponse:lastFeedResponse andURL:request.URL.absoluteString];
+            FeedResponse *fReponse = [[FeedResponse alloc] initWithFeedResponse:lastFeedResponse type:currentSession.feedType andURL:request.URL.absoluteString];
             fReponse.saved ? [self updateWithNewFeedResponse:fReponse] : NSLog(@"CANT SAVE RESPONSE");
         } else {
             NSLog(@"feed response same as last");
@@ -197,6 +197,19 @@
 
 }
 
+-(void)startWebServer {
+    isServerup = YES;
+    [self updateServerStatus];
+    [mongooseDaemon startMongooseDaemon:@"8080"];
+}
+
+-(void)stopWebServer {
+    [mongooseDaemon stopMongooseDaemon];
+    isServerup = NO;
+    //currentStatus = sIdol;
+    [self updateServerStatus];
+}
+
 #pragma mark IBActions
 -(IBAction)progressAreaClickedAction:(id)sender {
     NSLog(@"clicked progress ");
@@ -230,6 +243,9 @@
         //start playing
         
         currentStatus = sPlaying;
+        
+        //auto start web server
+        if (!isServerup) [self startServer:self];
         
         currentPlaybackTime = currentSession.startTime;
         [self copyFileForPlayBackTime:currentPlaybackTime];
@@ -319,9 +335,9 @@
     
     if (isServerup) return; //is already running
     
-    isServerup = YES;
-    [self updateServerStatus];
-    [mongooseDaemon startMongooseDaemon:@"8080"];
+    [self.statusTextField setStringValue:@"Starting Web Server ..."];
+    
+    [self performSelector:@selector(startWebServer) withObject:nil afterDelay:0.2];
 }
 
 -(IBAction)stopServer:(id)sender {
@@ -329,10 +345,9 @@
     
     if (!isServerup) return;
     
-    [mongooseDaemon stopMongooseDaemon];
-    isServerup = NO;
-    currentStatus = sIdol;
-    [self updateServerStatus];
+    [self.statusTextField setStringValue:@"Stopping Web Server ..."];
+    
+    [self performSelector:@selector(stopWebServer) withObject:nil afterDelay:0.2];
 }
 
 //called from main document to save the file

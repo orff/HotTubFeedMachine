@@ -26,13 +26,13 @@
     }
 }
 
--(NSString *)filenameForURL:(NSString *)urlString {
+-(NSString *)filenameForURL:(NSString *)urlString andType:(NSString *)feedType {
     //TODO: use URL as part of the filename
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh_mm_ss"];
     NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
     
-    return [NSString stringWithFormat:@"response-%@.json", dateString];
+    return [NSString stringWithFormat:@"response-%@.%@", dateString, feedType];
 }
 
 -(void)saveResponseToFile:(NSString *)feedResponse {
@@ -82,13 +82,12 @@
     return self;
 }
 
--(id)initWithFeedResponse:(NSString *)feedResponse andURL:(NSString *)urlString
-{
+-(id)initWithFeedResponse:(NSString *)feedResponse type:(NSString *)feedType andURL:(NSString *)urlString {
     self = [super init];
     if (self) {
         // Initialization code here.
         self.timeStamp = [NSDate date];
-        self.filename = [self filenameForURL:urlString];
+        self.filename = [self filenameForURL:urlString andType:feedType];
         
         [self saveResponseToFile:feedResponse];
     }

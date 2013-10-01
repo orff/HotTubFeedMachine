@@ -8,6 +8,7 @@
 
 #import "RecordingSession.h"
 #import "FeedResponse.h"
+#import "constants.h"
 
 @implementation RecordingSession
 
@@ -35,6 +36,7 @@
     [encoder encodeObject:self.startTime forKey:@"startTime"];
     [encoder encodeObject:self.endTime forKey:@"endTime"];
     [encoder encodeObject:self.feedURL forKey:@"feedURL"];
+    [encoder encodeObject:self.feedType forKey:@"feedType"];
     
 }
 
@@ -54,6 +56,9 @@
     _startTime = [decoder decodeObjectForKey:@"startTime"];
     _endTime = [decoder decodeObjectForKey:@"endTime"];
     _feedURL = [decoder decodeObjectForKey:@"feedURL"];
+    NSString *tmpFeedType = [decoder decodeObjectForKey:@"feedType"];
+    if (!tmpFeedType) tmpFeedType = DEFAULT_FEED_TYPE;
+    _feedType = tmpFeedType;
     
     return self;
 }
@@ -66,7 +71,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"feedURL: %@ responses %i startTime %@ endTime %@", _feedURL, (int)_feedResponses.count, [_startTime description], [_endTime description]];
+    return [NSString stringWithFormat:@"feedURL: %@ type: %@ responses %i startTime %@ endTime %@", _feedURL, _feedType, (int)_feedResponses.count, [_startTime description], [_endTime description]];
 }
 
 @end
