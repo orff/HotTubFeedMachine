@@ -45,6 +45,7 @@
     
     _feedType = DEFAULT_FEED_TYPE;
     _startTime = [NSDate date];
+    _endTime = _startTime;
     _feedResponses = [[NSMutableArray alloc] init];
     
     return self;

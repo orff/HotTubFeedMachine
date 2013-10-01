@@ -77,6 +77,14 @@
 
 #pragma mark
 #pragma mark Utility/Helpers
+
+-(void)updateStartEndTimes {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm:ss"];
+    
+    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentSession.startTime],[dateFormatter stringFromDate:currentSession.endTime]];
+}
+
 -(void)updateWithSession:(RecordingSession *)newSession {
     NSLog(@"loading new session");
     
@@ -88,10 +96,7 @@
     //update UI with new values
     if (currentSession.feedURL) self.feedTextField.stringValue =  currentSession.feedURL;
     
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm:ss"];
-    
-    self.endimeTextField.stringValue = [NSString stringWithFormat:@"%@ / %@",[dateFormatter stringFromDate:currentSession.startTime],[dateFormatter stringFromDate:currentSession.endTime]];
+    [self updateStartEndTimes];
     
     if (currentSession.feedResponses.count > 0) {
         [self updateProgressBarWithNewData];
@@ -102,6 +107,8 @@
 -(void)updateWithNewFeedResponse:(FeedResponse *)newResponse {
     //update current session with new response
     [currentSession addFeedResponse:newResponse]; //dont update property directly since it needs to bump endTime
+    
+    [self updateStartEndTimes];
     
     //update UI with new reponse
     [self updateProgressBarWithNewData];
