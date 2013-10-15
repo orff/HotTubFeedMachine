@@ -18,6 +18,7 @@ A feed recorder and playback app for mac OS X
     - open old session
     - hit play button for "realtime" playback
     - click / scrub on scrubber to move around in the session during playback
+    - use http://localhost:8080 to see feed output
   
 - TODO:
   - auto stop web server on exit app
