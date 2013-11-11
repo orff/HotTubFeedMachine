@@ -13,7 +13,7 @@
 #define RAW_DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/feedSimulator/_responses"]
 #define DEFAULT_FEED_TYPE           @"xml"
 
-#define RECORD_ONLY_DIFFS                  NO
+#define RECORD_ONLY_DIFFS                  YES
 #define DEBUG_DRAW_CONTAINERS              NO
 
 #endif
