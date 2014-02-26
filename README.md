@@ -1,7 +1,7 @@
 HotTubFeedMachine
 =================
 
-A feed recorder and playback app for mac OS X
+An endpoint recorder and playback app for mac OS X
 
 - install CocoaPods
 - run #pod install
